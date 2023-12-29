@@ -1,0 +1,14 @@
+version: '3.9'
+
+services:
+  stignore-generator-dev:
+    build:
+      context: ./src/stignore-generator
+      dockerfile: Dockerfile_dev
+    container_name: stignore-generator-dev
+    volumes:
+        - './src/stignore-generator:/workspace'
+        - './dev-data/stignore-generator/vsc_extensions:/root/.vscode-server/extensions'
+    stdin_open: true
+    tty: true
+    # entrypoint: ./build-run.sh

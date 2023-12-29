@@ -1,0 +1,4 @@
+.venv
+.gitignore
+Dockerfile
+Dockerfile_dev
