@@ -1,0 +1,1 @@
+docker build -t 117503445/stfed .
