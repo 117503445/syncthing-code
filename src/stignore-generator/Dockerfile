@@ -1,11 +1,13 @@
 FROM python:3.11-slim
 
-WORKDIR /workspace
+RUN apt-get update && apt-get install -y inotify-tools && rm -rf /var/lib/apt/lists/*
 
-COPY requirements-dev.lock pyproject.toml README.md .
+WORKDIR /app
+
+COPY requirements-dev.lock pyproject.toml README.md ./
 
 RUN pip install -r requirements-dev.lock
 
 COPY . .
 
-ENTRYPOINT ["python", "./src/stignore_generator/generate-stignore.py"]
+ENTRYPOINT [ "./watch.sh" ]
