@@ -9,5 +9,7 @@ wheels/
 # venv
 .venv
 
-
 /target
+
+.stignore
+.stgitignore

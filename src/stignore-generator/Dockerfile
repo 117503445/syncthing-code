@@ -1,13 +1,12 @@
-FROM python:3.11-slim
-
-RUN apt-get update && apt-get install -y inotify-tools && rm -rf /var/lib/apt/lists/*
-
+FROM rust:1.75.0 as build-env
 WORKDIR /app
-
-COPY requirements-dev.lock pyproject.toml README.md ./
-
-RUN pip install -r requirements-dev.lock
-
+COPY Cargo.toml Cargo.lock ./
+RUN mkdir ./src && echo 'fn main() { println!("Dummy!"); }' > ./src/main.rs
+RUN cargo fetch
 COPY . .
+RUN cargo build --release
 
-ENTRYPOINT [ "./watch.sh" ]
+FROM gcr.io/distroless/cc-debian12
+WORKDIR /app
+COPY --from=build-env /app/target/release/stignore-generator .
+ENTRYPOINT [ "./stignore-generator" ]

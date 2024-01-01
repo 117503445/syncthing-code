@@ -40,7 +40,7 @@ fn gen_stgitignore(dir: &Path) -> String {
         .unwrap()
         .filter_map(Result::ok)
         .for_each(|path| {
-            stignore += &format!("\n# {}\n", path.display());
+            stignore += &format!("\n## {}\n", path.display());
             let gitignore_dir = path.parent().unwrap();
             let gitignore = std::fs::read_to_string(&path).unwrap();
             stignore += &gitignore_to_stignore(gitignore_dir, &gitignore);
