@@ -1,1 +1,1 @@
-FROM registry.cn-hangzhou.aliyuncs.com/117503445-mirror/dev-python
+FROM registry.cn-hangzhou.aliyuncs.com/117503445-mirror/dev-rust
