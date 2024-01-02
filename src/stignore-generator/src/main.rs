@@ -8,6 +8,8 @@ use log::info;
 use stignore_generator::write_stgitignore;
 use stignore_generator::write_stignore;
 
+extern crate dirs;
+
 fn write() {
     info!("write .stignore and .stgitignore");
 
@@ -22,21 +24,26 @@ fn write() {
 fn main() {
     Builder::from_env(Env::default().default_filter_or("debug")).init();
 
-    // read git.txt
-    let mut git_version = String::from("unknown");
-    let git_version_file = Path::new("git.txt");
-    if git_version_file.exists() {
-        git_version = std::fs::read_to_string(git_version_file).unwrap();
-    }
-
+    let git_version = std::fs::read_to_string("git.txt").unwrap_or(String::from("unknown"));
     info!("stignore-generator started, version: {}", git_version);
 
-    let workspace_path = Path::new("/workspace");
-    env::set_current_dir(workspace_path).unwrap();
+    let workspace_dir = if let Ok(dir) = env::var("WORKSPACE_DIR") {
+        dir
+    } else {
+        dirs::home_dir()
+            .unwrap()
+            .join("workspace")
+            .display()
+            .to_string() // ~/workspace
+    };
+
+    info!("workspace_dir: {}", workspace_dir);
+
+    env::set_current_dir(workspace_dir.clone()).unwrap();
 
     write();
 
-    if let Err(error) = watch(workspace_path) {
+    if let Err(error) = watch(workspace_dir) {
         log::error!("Error: {error:?}");
     }
 }

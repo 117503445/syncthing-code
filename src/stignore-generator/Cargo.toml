@@ -1,6 +1,6 @@
 [package]
 name = "stignore-generator"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -10,3 +10,4 @@ env_logger = "0.10.1"
 glob = "0.3.1"
 notify = "6.1.1"
 log = "0.4.20"
+dirs = "5.0.1"

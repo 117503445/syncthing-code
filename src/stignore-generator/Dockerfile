@@ -8,5 +8,6 @@ RUN cargo build --release
 
 FROM gcr.io/distroless/cc-debian12
 WORKDIR /app
+ENV WORKSPACE_DIR=/workspace
 COPY --from=build-env /app/target/release/stignore-generator .
-ENTRYPOINT [ "./stignore-generator" ]
+CMD [ "./stignore-generator" ]
