@@ -13,7 +13,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - run: cd ./src/stignore-generator && ../common/write_git_info.sh
+      - run: ./src/common/write_git_info.py
         env:
           SHA: ${{ github.sha }}
 

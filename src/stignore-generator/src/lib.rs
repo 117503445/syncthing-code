@@ -1,3 +1,5 @@
+pub mod version;
+
 use std::path::Path;
 
 /// convert .gitignore to stignore

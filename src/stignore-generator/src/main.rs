@@ -7,6 +7,7 @@ use env_logger::{Builder, Env};
 use log::info;
 use stignore_generator::write_stgitignore;
 use stignore_generator::write_stignore;
+use stignore_generator::version::version;
 
 extern crate dirs;
 
@@ -23,9 +24,8 @@ fn write() {
 
 fn main() {
     Builder::from_env(Env::default().default_filter_or("debug")).init();
-
-    let git_version = std::fs::read_to_string("git.txt").unwrap_or(String::from("unknown"));
-    info!("stignore-generator started, version: {}", git_version);
+    
+    info!("stignore-generator started, version: {}, repo git version: {}", env!("CARGO_PKG_VERSION"), version());
 
     let workspace_dir = if let Ok(dir) = env::var("WORKSPACE_DIR") {
         dir

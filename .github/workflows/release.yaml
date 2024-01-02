@@ -21,7 +21,7 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: build
-        run: cd ./src/stignore-generator && docker build -t 117503445/stignore-generator-builder -f Dockerfile_build . && docker run --rm -v $(pwd):/app 117503445/stignore-generator-builder
+        run: ./src/common/write_git_info.py && cd ./src/stignore-generator && docker build -t 117503445/stignore-generator-builder -f Dockerfile_build . && docker run --rm -v $(pwd):/app 117503445/stignore-generator-builder
 
       # https://github.com/softprops/action-gh-release
       - name: release
