@@ -1,0 +1,3 @@
+FROM rust:1.75.0 as build-env
+WORKDIR /app
+ENTRYPOINT [ "cargo", "build", "--release" ]
