@@ -9,8 +9,9 @@ use stignore_generator::write_stgitignore;
 use stignore_generator::write_stignore;
 
 fn write() {
-    let workspace_dir: &Path = Path::new(".");
+    info!("write .stignore and .stgitignore");
 
+    let workspace_dir: &Path = Path::new(".");
     let stignore_file = workspace_dir.join(".stignore");
     let stignore_file = stignore_file.as_path();
 
@@ -23,10 +24,9 @@ fn main() {
     info!("stignore-generator started");
 
     let workspace_path = Path::new("/workspace");
-
     env::set_current_dir(workspace_path).unwrap();
 
-    // write();
+    write();
 
     if let Err(error) = watch(workspace_path) {
         log::error!("Error: {error:?}");
