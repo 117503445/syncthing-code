@@ -21,7 +21,15 @@ fn write() {
 
 fn main() {
     Builder::from_env(Env::default().default_filter_or("debug")).init();
-    info!("stignore-generator started");
+
+    // read git.txt
+    let mut git_version = String::from("unknown");
+    let git_version_file = Path::new("git.txt");
+    if git_version_file.exists() {
+        git_version = std::fs::read_to_string(git_version_file).unwrap();
+    }
+
+    info!("stignore-generator started, version: {}", git_version);
 
     let workspace_path = Path::new("/workspace");
     env::set_current_dir(workspace_path).unwrap();
